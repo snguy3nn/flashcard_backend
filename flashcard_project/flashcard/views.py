@@ -1,20 +1,22 @@
 from django.http import Http404
 from .models import Flashcard
+from .models import Collection
+from .serailizers import CollectionSerializer
 from .serailizers import FlashcardSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 
-class FlashcardList(APIView):
+class CollectionList(APIView):
 
     def get(self, request):
-        flashcard = Flashcard.objects.all()
-        serializer = FlashcardSerializer(flashcard, many=True)
+        collection = Collection.objects.all()
+        serializer = CollectionSerializer(collection, many=True)
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = FlashcardSerializer(data=request.data)
+        serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
