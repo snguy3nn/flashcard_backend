@@ -31,7 +31,7 @@ class CollectionDetail(APIView):
 
     def get(self, request, pk):
         collection = self.get_object(pk)
-        serializer = FlashcardSerializer(collection)
+        serializer = CollectionSerializer(collection)
         return Response(serializer.data)
 
     def put(self, request, pk):
